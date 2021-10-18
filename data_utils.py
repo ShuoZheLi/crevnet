@@ -23,6 +23,7 @@ from PIL import Image, ImageDraw
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 import imageio
+import helpers_data_utils
 
 hostname = socket.gethostname()
 
@@ -166,8 +167,8 @@ def image_tensor(inputs, padding=1):
 def save_np_img(fname, x):
     if x.shape[0] == 1:
         x = np.tile(x, (3, 1, 1))
-    img = scipy.misc.toimage(x,
-                             high=255.,
+    img = helpers_data_utils.toimage(x,
+                             high=255,
                              channel_axis=0)
     img.save(fname)
 
@@ -177,8 +178,8 @@ def make_image(tensor):
     if tensor.size(0) == 1:
         tensor = tensor.expand(3, tensor.size(1), tensor.size(2))
     # pdb.set_trace()
-    return scipy.misc.toimage(tensor.numpy(),
-                              high=255.,
+    return helpers_data_utils.toimage(tensor.numpy(),
+                              high=255,
                               channel_axis=0)
 
 
